@@ -292,8 +292,8 @@ SkillNest/
 ```json
 {
   "id": "USR001",
-  "name": "YGE Administrator",
-  "email": "admin@ygeupskill.com",
+  "name": "SkillNest Administrator",
+  "email": "admin@skillnest.com",
   "phone": "+91 90000 00001",
   "password": "Admin@123",
   "role": "admin",
@@ -302,7 +302,7 @@ SkillNest/
 ```
 
 `role` is either `user` or `admin`. It is set once at signup and can never be edited from the UI.
-The default administrator (`admin@ygeupskill.com`) is created automatically on first load and is
+The default administrator (`admin@skillnest.com`) is created automatically on first load and is
 protected from deletion.
 
 ### `yge_events` – array of event objects
@@ -319,7 +319,7 @@ protected from deletion.
   "endTime": "13:00",
   "duration": "3 hours",
   "mode": "Online",
-  "venueOrLink": "https://meet.ygeupskill.com/fullstack",
+  "venueOrLink": "https://meet.skillnest.com/fullstack",
   "maxParticipants": 40,
   "status": "upcoming",
   "createdAt": "2025-05-20T10:00:00.000Z"
@@ -363,12 +363,35 @@ against `yge_users`; if the account no longer exists the session is cleared.
 
 `js/storage.js` runs `init()` on every page load:
 
-1. Create the default administrator if it does not exist.
-2. Create the sample events **only if** `yge_events` is missing.
-3. Create an empty `yge_registrations` array **only if** that key is missing.
-4. Refresh the cached `eventTitle` / `eventDate` on registrations.
+1. Run `migrateBranding()` – see [Branding migration](#branding-migration).
+2. Create the default administrator if it does not exist.
+3. Create the sample events **only if** `yge_events` is missing.
+4. Create an empty `yge_registrations` array **only if** that key is missing.
+5. Refresh the cached `eventTitle` / `eventDate` on registrations.
 
 Existing data is never overwritten.
+
+#### Branding migration
+
+The project was originally built as *YGE Upskill* and is now shipped as **SkillNest**.
+`migrateBranding()` runs on every page load, before the default administrator is
+created, so an existing local installation upgrades itself without a reset:
+
+| Old value | New value |
+| --- | --- |
+| `admin@ygeupskill.com` | `admin@skillnest.com` |
+| `YGE Administrator` | `SkillNest Administrator` |
+| `https://meet.ygeupskill.com/...` | `https://meet.skillnest.com/...` |
+| `YGE Campus`, `YGE Design Studio` | `SkillNest Campus`, `SkillNest Design Studio` |
+
+The migration is deliberately narrow. It preserves the account **id**, password,
+role and `createdAt`, leaves every other user account alone, keeps all
+registrations intact, and never deletes LocalStorage. If both the old and the new
+admin address are already present, only the stale legacy record is dropped so a
+duplicate administrator can never be created. The four LocalStorage key names
+(`yge_users`, `yge_events`, `yge_registrations`, `yge_currentUser`) are internal
+identifiers and intentionally keep their original `yge_` prefix for backwards
+compatibility with existing data.
 
 ---
 
@@ -464,7 +487,7 @@ using the buttons on the page.
 **Administrator**
 
 ```
-Email:    admin@ygeupskill.com
+Email:    admin@skillnest.com
 Password: Admin@123
 ```
 
@@ -594,7 +617,7 @@ A complete, repeatable demo (approx. 5 minutes).
     email and role are read-only.
 11. **Logout** – click *Logout* and show that `yge_currentUser` is cleared and login is required
     again.
-12. **Admin login** – login with `admin@ygeupskill.com` / `Admin@123`. Show the redirect to
+12. **Admin login** – login with `admin@skillnest.com` / `Admin@123`. Show the redirect to
     `admin/dashboard.html` and the real statistics.
 13. **Admin CRUD** – create an event, verify it appears in the learner catalogue, edit it, view
 its registrations and delete it. Show the confirmation dialog and that its registrations are

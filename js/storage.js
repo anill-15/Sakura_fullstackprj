@@ -48,7 +48,7 @@
       const parsed = JSON.parse(raw);
       return parsed === null || parsed === undefined ? fallback : parsed;
     } catch (err) {
-      console.warn('[YGE] Corrupt data found for key "' + key + '". Resetting to default.');
+      console.warn('[SkillNest] Corrupt data found for key "' + key + '". Resetting to default.');
       return fallback;
     }
   };
@@ -97,8 +97,8 @@
      ============================================================= */
   const DEFAULT_ADMIN = {
     id: 'USR001',
-    name: 'YGE Administrator',
-    email: 'admin@ygeupskill.com',
+    name: 'SkillNest Administrator',
+    email: 'admin@skillnest.com',
     phone: '+91 90000 00001',
     password: 'Admin@123',
     role: 'admin',
@@ -126,7 +126,7 @@
       endTime: '13:00',
       duration: '3 hours',
       mode: 'Online',
-      venueOrLink: 'https://meet.ygeupskill.com/fullstack',
+      venueOrLink: 'https://meet.skillnest.com/fullstack',
       maxParticipants: 40,
       status: 'upcoming',
       createdAt: dayTimeOffset(-14, -3)
@@ -143,7 +143,7 @@
       endTime: '17:00',
       duration: '2 hours',
       mode: 'Online',
-      venueOrLink: 'https://meet.ygeupskill.com/js-essentials',
+      venueOrLink: 'https://meet.skillnest.com/js-essentials',
       maxParticipants: 60,
       status: 'upcoming',
       createdAt: dayTimeOffset(-12, -1)
@@ -160,7 +160,7 @@
       endTime: '12:30',
       duration: '3 hours',
       mode: 'Offline',
-      venueOrLink: 'YGE Campus, Lab 3, Block B',
+      venueOrLink: 'SkillNest Campus, Lab 3, Block B',
       maxParticipants: 35,
       status: 'upcoming',
       createdAt: dayTimeOffset(-11, -4)
@@ -177,7 +177,7 @@
       endTime: '14:00',
       duration: '3 hours',
       mode: 'Online',
-      venueOrLink: 'https://meet.ygeupskill.com/data-analytics',
+      venueOrLink: 'https://meet.skillnest.com/data-analytics',
       maxParticipants: 30,
       status: 'upcoming',
       createdAt: dayTimeOffset(-10, -2)
@@ -194,7 +194,7 @@
       endTime: '15:00',
       duration: '2 hours',
       mode: 'Offline',
-      venueOrLink: 'YGE Design Studio, Room 12',
+      venueOrLink: 'SkillNest Design Studio, Room 12',
       maxParticipants: 25,
       status: 'upcoming',
       createdAt: dayTimeOffset(-9, -5)
@@ -211,7 +211,7 @@
       endTime: '20:00',
       duration: '2 hours',
       mode: 'Online',
-      venueOrLink: 'https://meet.ygeupskill.com/git-github',
+      venueOrLink: 'https://meet.skillnest.com/git-github',
       maxParticipants: 50,
       status: 'upcoming',
       createdAt: dayTimeOffset(-8, -6)
@@ -228,7 +228,7 @@
       endTime: '12:00',
       duration: '2 hours',
       mode: 'Online',
-      venueOrLink: 'https://meet.ygeupskill.com/ai-basics',
+      venueOrLink: 'https://meet.skillnest.com/ai-basics',
       maxParticipants: 80,
       status: 'upcoming',
       createdAt: dayTimeOffset(-30, -2)
@@ -245,7 +245,7 @@
       endTime: '17:00',
       duration: '3 hours',
       mode: 'Offline',
-      venueOrLink: 'YGE Campus, Innovation Lab',
+      venueOrLink: 'SkillNest Campus, Innovation Lab',
       maxParticipants: 24,
       status: 'upcoming',
       createdAt: dayTimeOffset(-45, -4)
@@ -360,7 +360,82 @@
     return admin;
   };
 
+  /* =============================================================
+     Branding migration (YGE Upskill -> SkillNest)
+     Renames the demo admin account and seeded meeting domain for
+     installations that already have data. Only these two brand values
+     change: id, password, role, createdAt, name and all registrations
+     are preserved. Runs before ensureDefaultAdmin so an existing admin
+     is migrated instead of duplicated.
+     ============================================================= */
+  const LEGACY_ADMIN_EMAIL = 'admin@ygeupskill.com';
+  const LEGACY_ADMIN_NAME = 'YGE Administrator';
+  const LEGACY_MEETING_HOST = 'meet.ygeupskill.com';
+  const BRAND_MEETING_HOST = 'meet.skillnest.com';
+
+  const migrateBranding = () => {
+    const changes = { admin: false, events: false, session: false };
+
+    /* --- admin identity --- */
+    let users = getUsers();
+    const legacyIndex = users.findIndex(
+      (user) => String(user.email || '').toLowerCase() === LEGACY_ADMIN_EMAIL
+    );
+    if (legacyIndex !== -1) {
+      const legacy = users[legacyIndex];
+      const alreadyPresent = users.some(
+        (user, index) =>
+          index !== legacyIndex &&
+          String(user.email || '').toLowerCase() === DEFAULT_ADMIN.email
+      );
+      if (alreadyPresent) {
+        /* Both accounts exist: drop only the stale legacy record, keeping
+           the canonical admin and every other account untouched. */
+        users.splice(legacyIndex, 1);
+      } else {
+        legacy.email = DEFAULT_ADMIN.email;
+        if (!legacy.name || legacy.name === LEGACY_ADMIN_NAME) legacy.name = DEFAULT_ADMIN.name;
+        /* Force admin role so the migrated account keeps full access. */
+        if (legacy.role !== 'admin') legacy.role = 'admin';
+      }
+      saveUsers(users);
+      changes.admin = true;
+    }
+
+    /* --- seeded meeting links --- */
+    const events = getEvents();
+    if (
+      events.some((event) =>
+        String(event.venueOrLink || '').toLowerCase().includes(LEGACY_MEETING_HOST)
+      )
+    ) {
+      events.forEach((event) => {
+        if (typeof event.venueOrLink !== 'string') return;
+        event.venueOrLink = event.venueOrLink
+          .split(LEGACY_MEETING_HOST)
+          .join(BRAND_MEETING_HOST);
+      });
+      saveEvents(events);
+      changes.events = true;
+    }
+
+    /* --- active session: only the email/name labels, never the id --- */
+    const session = readJson(KEYS.currentUser, null);
+    if (session && String(session.email || '').toLowerCase() === LEGACY_ADMIN_EMAIL) {
+      const canonical = getUsers().find(
+        (user) => String(user.email || '').toLowerCase() === DEFAULT_ADMIN.email
+      );
+      session.email = DEFAULT_ADMIN.email;
+      if (canonical) session.name = canonical.name;
+      writeJson(KEYS.currentUser, session);
+      changes.session = true;
+    }
+
+    return changes;
+  };
+
   const init = () => {
+    migrateBranding();
     ensureDefaultAdmin();
 
     if (rawGet(KEYS.events) === null) {
@@ -402,6 +477,7 @@
   globalObj.init = init;
   globalObj.reset = reset;
   globalObj.ensureDefaultAdmin = ensureDefaultAdmin;
+  globalObj.migrateBranding = migrateBranding;
   globalObj.DEFAULT_ADMIN = Object.assign({}, DEFAULT_ADMIN);
   globalObj.DEMO_USER_CREDENTIALS = Object.assign({}, DEMO_USER_CREDENTIALS);
 
