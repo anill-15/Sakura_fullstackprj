@@ -1,0 +1,55 @@
+/* =============================================================
+   SkillNest - css/admin.css
+   Administrator console specific styling.
+   ============================================================= */
+
+.admin-body { background: #eef2f7; }
+
+.admin-topbar { border-bottom: 2px solid var(--primary); }
+
+/* Admin sidebar accent */
+.admin-sidebar { background: #111c33; }
+.admin-sidebar .sidebar-nav a.active { background: linear-gradient(90deg, var(--primary), #6366f1); }
+.admin-sidebar .sidebar-user .avatar { background: #a78bfa; }
+.admin-shell .page-header h1 { display: flex; align-items: center; gap: .6rem; }
+.admin-badge {
+  display: inline-flex; align-items: center; gap: .3rem;
+  font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  background: #ede9fe; color: #5b21b6; border-radius: var(--radius-full); padding: .2rem .6rem;
+}
+
+/* 6 stat cards wrap to 3 columns in the admin console */
+.admin-stats { grid-template-columns: repeat(3, 1fr); }
+
+/* ---------------- Event manager ---------------- */
+.event-form-panel { border-left: 4px solid var(--primary); }
+.event-form-panel[hidden] { display: none; }
+.form-hint { font-size: .82rem; color: var(--muted); margin: 0 0 1rem; }
+.admin-table-note { font-size: .85rem; color: var(--muted); margin: .75rem 0 0; }
+
+.admin-mobile-cards { display: none; }
+.mobile-card-list { display: flex; flex-direction: column; gap: 1rem; }
+
+/* ---------------- Registrations manager ---------------- */
+.registration-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.summary-chip { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1rem 1.15rem; box-shadow: var(--shadow-xs); }
+.summary-chip .chip-label { margin: 0; font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+.summary-chip .chip-value { margin: .15rem 0 0; font-size: 1.6rem; font-weight: 700; }
+.summary-chip-accent { border-top: 3px solid var(--primary); }
+.summary-chip-success { border-top: 3px solid var(--success); }
+.summary-chip-warning { border-top: 3px solid var(--warning); }
+.summary-chip-danger { border-top: 3px solid var(--danger); }
+
+/* ---------------- User manager ---------------- */
+.user-stats { grid-template-columns: repeat(3, 1fr); }
+.table-toolbar { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.25rem; }
+.table-toolbar .search-field { flex: 1 1 260px; }
+.role-chip { font-size: .72rem; font-weight: 700; padding: .18rem .55rem; border-radius: var(--radius-full); }
+.role-chip-admin { background: #ede9fe; color: #5b21b6; }
+.role-chip-user { background: var(--info-soft); color: #155e75; }
+
+/* ---------------- Dashboard panels ---------------- */
+.dashboard-panels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 1.5rem; align-items: start; }
+.panel-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.panel-header h2 { font-size: 1.05rem; margin: 0; }
+.panel-link { font-size: .85rem; font-weight: 600; }

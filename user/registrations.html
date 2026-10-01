@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View and cancel your SkillNest training event registrations." />
+  <title>My Registrations | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Learner navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">My Registrations</h1>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1>My Registrations</h1>
+            <p>Track the sessions you have reserved and release a seat when your plans change.</p>
+          </div>
+          <div class="page-header-actions">
+            <a class="btn btn-primary btn-sm" data-nav="user/events.html" href="#">Find more events</a>
+          </div>
+        </div>
+
+        <section class="stats-grid" id="regStats" aria-label="Registration statistics">
+          <!-- Rendered by js/user.js -->
+        </section>
+
+        <div id="registrationList">
+          <!-- Active + history sections rendered by js/user.js -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.user.initRegistrations();
+    });
+  </script>
+</body>
+</html>

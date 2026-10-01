@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SkillNest is a web based online training and technical skill development platform offering hands-on sessions in web development, programming, data science, AI and UI/UX design." />
+  <meta name="author" content="SkillNest" />
+  <title>SkillNest | Online Training &amp; Technical Skill Development Platform</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ===================== Navbar ===================== -->
+  <header class="public-nav" id="top">
+    <div class="container">
+      <div id="publicNav" class="public-nav-inner">
+        <!-- Brand, links and actions rendered by js/navigation.js (mountPublicNav) -->
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== Hero ===================== -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow">Online Training Platform</span>
+            <h1>Build real technical skills with structured, mentor-led training.</h1>
+            <p class="hero-lead">
+              SkillNest helps students, teachers, lifelong learners and working professionals upgrade their
+              technical skills through live training sessions, practical exercises and clear learning paths in
+              web development, programming, data science, artificial intelligence and design.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary btn-lg" href="signup.html">Create a free account</a>
+              <a class="btn btn-outline btn-lg" href="#events">Browse upcoming events</a>
+            </div>
+            <ul class="hero-notes">
+              <li>No installation required</li>
+              <li>Online &amp; offline sessions</li>
+              <li>Register in under a minute</li>
+            </ul>
+          </div>
+          <div class="hero-image">
+            <img src="assets/images/hero.svg" alt="Illustration of an online learning dashboard showing training sessions, course cards and a completed course" width="720" height="460" />
+          </div>
+        </div>
+
+        <div class="stat-strip">
+          <div><strong id="statEvents">0</strong><span>Training events</span></div>
+          <div><strong id="statCategories">0</strong><span>Skill categories</span></div>
+          <div><strong id="statTrainers">0</strong><span>Expert trainers</span></div>
+          <div><strong id="statLearners">0</strong><span>Registered learners</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== About ===================== -->
+    <section class="section section-alt" id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">About the platform</span>
+          <h2>Purpose built for hands-on technical learning</h2>
+          <p>
+            Many free tutorials are scattered across the web. SkillNest brings scheduled, mentor-led sessions
+            into one place so learners can see what is happening, reserve a seat and track what they have completed.
+          </p>
+        </div>
+
+        <div class="grid grid-4">
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6l-8-4z"/></svg>
+            </span>
+            <h3>Curated Sessions</h3>
+            <p>Every event is described clearly with trainer, duration, mode, venue and seat availability.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4l-1.4-1.4L12 11.2 9.4 8.6 9 9zm-4 8h14v-2H5v2z"/></svg>
+            </span>
+            <h3>One-Click Registration</h3>
+            <p>Reserve a seat in a couple of clicks. Duplicate registrations and full sessions are blocked.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9 4a8 8 0 0 0-.7-3.2l1.5-1.2-2-3.4-1.8.7A9 9 0 0 0 15.4 3l-.4-2h-4l-.4 2a9 9 0 0 0-2.6 1.6l-1.8-.7-2 3.4L5.7 8.8A8 8 0 0 0 5 12a8 8 0 0 0 .7 3.2l-1.5 1.2 2 3.4 1.8-.7a9 9 0 0 0 2.6 1.6l.4 2h4l.4-2a9 9 0 0 0 2.6-1.6l1.8.7 2-3.4-1.5-1.2A8 8 0 0 0 19 12z"/></svg>
+            </span>
+            <h3>Progress Tracking</h3>
+            <p>Upcoming, ongoing and completed sessions are separated so learners always know the next step.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm-8 1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.3 0-7 1.2-7 3.5V21h8v-2.5C9 15 11 14 13 14zm8 0v2.5V21h8v-3.5c0-2.3-4.7-3.5-7-3.5z"/></svg>
+            </span>
+            <h3>Managed by Administrators</h3>
+            <p>Administrators create events, monitor registrations and keep the platform organised for every learner.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Training categories ===================== -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Training categories</span>
+          <h2>Choose the skill you want to grow next</h2>
+          <p>Categories are generated from the live event catalogue stored in your browser.</p>
+        </div>
+        <div class="grid grid-4" id="categoryGrid">
+          <!-- Categories rendered by js/user.js (initLanding) -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Upcoming events ===================== -->
+    <section class="section section-alt" id="events">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Upcoming events</span>
+          <h2>Next training sessions on SkillNest</h2>
+          <p>These cards are rendered dynamically from the event data saved in LocalStorage.</p>
+        </div>
+        <div class="stack" id="landingEvents">
+          <!-- Upcoming events rendered by js/user.js (initLanding) -->
+        </div>
+        <div class="text-center" style="margin-top:2rem;">
+          <a class="btn btn-primary" href="signup.html">Register for a session</a>
+          <a class="btn btn-ghost" href="login.html">Login to see all events</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Audience ===================== -->
+    <section class="section" id="audience">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Who is it for</span>
+          <h2>Designed for everyone who wants to upskill</h2>
+          <p>SkillNest is intentionally simple so learners from any background can start immediately.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#128218;</span>
+            <h3>Students</h3>
+            <p>Build project-ready skills and understand emerging technologies before the placement season.</p>
+          </article>
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#127979;</span>
+            <h3>Working Professionals</h3>
+            <p>Upskill in evening and weekend sessions without leaving your current job.</p>
+          </article>
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#128105;&#8205;&#127979;</span>
+            <h3>Teachers &amp; Mentors</h3>
+            <p>Run structured technical workshops and track who attends which session.</p>
+          </article>
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#128640;</span>
+            <h3>Lifelong Learners</h3>
+            <p>Explore new tools at your own pace with short, focused sessions.</p>
+          </article>
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#9889;</span>
+            <h3>Academic Enthusiasts</h3>
+            <p>Use the platform as a ready-made demo for classroom and project presentations.</p>
+          </article>
+          <article class="audience-card">
+            <span class="audience-icon" aria-hidden="true">&#129309;</span>
+            <h3>Career Switchers</h3>
+            <p>Learn in-demand technical skills in a structured, scheduled format.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== How it works ===================== -->
+    <section class="section section-alt" id="how-it-works">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">How it works</span>
+          <h2>Four simple steps to start learning</h2>
+          <p>Everything happens in your browser using LocalStorage, so there is nothing to install.</p>
+        </div>
+        <div class="grid grid-4">
+          <article class="step">
+            <span class="step-num">1</span>
+            <h3>Create an account</h3>
+            <p>Sign up with your name, email, phone number and a password. Your account is saved in the browser.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">2</span>
+            <h3>Login securely</h3>
+            <p>Your role decides where you land. Learners go to the learner portal, administrators to the console.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">3</span>
+            <h3>Register for events</h3>
+            <p>Filter by category or status, check the seats available and reserve your place in one click.</p>
+          </article>
+          <article class="step">
+            <span class="step-num">4</span>
+            <h3>Track your progress</h3>
+            <p>See upcoming, ongoing and completed sessions, update your profile and cancel plans early.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA ===================== -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Ready to upgrade your technical skills?</h2>
+          <p>
+            Create your free learner account today, or use the administrator account to manage events,
+            registrations and users for your institute.
+          </p>
+          <div class="flex gap justify-between" style="justify-content:center; flex-wrap:wrap;">
+            <a class="btn btn-primary btn-lg" href="signup.html" style="background:#fff;color:var(--primary-dark);">Create account</a>
+            <a class="btn btn-ghost btn-lg" href="login.html">Administrator login</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img src="assets/images/logo.svg" alt="SkillNest logo" width="36" height="36" />
+            <span class="brand-text"><strong style="color:#fff;">SkillNest</strong><small>Skill Development Platform</small></span>
+          </div>
+          <p>
+            An academic full stack development project built with HTML, CSS and vanilla JavaScript.
+            All data is stored locally in your browser using LocalStorage.
+          </p>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Account</h4>
+          <ul>
+            <li><a href="signup.html">Sign up</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="login.html">Administrator</a></li>
+            <li><a href="#audience">Who is it for</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Technology</h4>
+          <ul>
+            <li><a href="#about">HTML5</a></li>
+            <li><a href="#about">CSS3 Grid &amp; Flexbox</a></li>
+            <li><a href="#about">Vanilla JavaScript</a></li>
+            <li><a href="#about">LocalStorage</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; <span id="currentYear">2025</span> SkillNest &middot; Academic SDC Full Stack Development Project &middot; Version 1.0
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/events.js"></script>
+  <script src="js/user.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.user.initLanding();
+    });
+  </script>
+</body>
+</html>

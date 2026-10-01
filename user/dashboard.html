@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your SkillNest learner dashboard with upcoming sessions, registration statistics and quick actions." />
+  <title>Dashboard | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell">
+    <!-- Sidebar injected by js/navigation.js (mountShell) -->
+    <aside class="sidebar" id="sidebar" aria-label="Learner navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">Dashboard</h1>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1 id="welcomeText">Welcome!</h1>
+            <p id="welcomeSub">Loading your learning summary...</p>
+          </div>
+          <div class="page-header-actions">
+            <a class="btn btn-primary btn-sm" data-nav="user/events.html" href="#">Browse Events</a>
+            <a class="btn btn-outline btn-sm" data-nav="user/registrations.html" href="#">My Registrations</a>
+          </div>
+        </div>
+
+        <section class="stats-grid" id="dashStats" aria-label="Your learning statistics">
+          <!-- Rendered by js/user.js -->
+        </section>
+
+        <div class="dash-columns">
+          <section class="panel" aria-labelledby="nextSessionsTitle">
+            <div class="panel-header">
+              <h2 id="nextSessionsTitle" class="panel-title" style="border:0;padding:0;margin:0;">Your next sessions</h2>
+              <a class="panel-link" data-nav="user/registrations.html" href="#">View all</a>
+            </div>
+            <div class="stack" id="nextSessions">
+              <!-- Rendered by js/user.js -->
+            </div>
+          </section>
+
+          <div class="stack">
+            <section class="panel" aria-labelledby="quickActionsTitle">
+              <h2 id="quickActionsTitle" class="panel-title">Quick actions</h2>
+              <div class="quick-actions">
+                <a class="quick-action" data-nav="user/events.html" id="qaEvents" href="#">
+                  <span class="qa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm12 8v9H5v-9h14z"/></svg>
+                  </span>
+                  View Events
+                  <small>Explore all sessions</small>
+                </a>
+                <a class="quick-action" data-nav="user/registrations.html" id="qaRegistrations" href="#">
+                  <span class="qa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V8a2 2 0 0 1 2-2z"/></svg>
+                  </span>
+                  My Registrations
+                  <small>Upcoming and history</small>
+                </a>
+                <a class="quick-action" data-nav="user/profile.html" id="qaProfile" href="#">
+                  <span class="qa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6z"/></svg>
+                  </span>
+                  My Profile
+                  <small>Name, phone, password</small>
+                </a>
+                <button type="button" class="quick-action" data-action="logout" id="qaLogout">
+                  <span class="qa-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M17 7l-1.4 1.4L18.2 11H9v2h9.2l-2.6 2.6L17 17l5-5-5-5zM5 5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7v-2H5V5z"/></svg>
+                  </span>
+                  Logout
+                  <small>End the session</small>
+                </button>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="profileGlanceTitle">
+              <h2 id="profileGlanceTitle" class="panel-title">Account</h2>
+              <dl class="profile-details">
+                <div>
+                  <dt>User ID</dt>
+                  <dd id="accountId">-</dd>
+                </div>
+                <div>
+                  <dt>Role</dt>
+                  <dd>Learner</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd id="accountEmail">-</dd>
+                </div>
+                <div>
+                  <dt>Member since</dt>
+                  <dd id="accountCreated">-</dd>
+                </div>
+              </dl>
+            </section>
+          </div>
+        </div>
+
+        <section class="panel" style="margin-top:1.5rem;" aria-labelledby="recommendedTitle">
+          <div class="panel-header">
+            <h2 id="recommendedTitle" class="panel-title" style="border:0;padding:0;margin:0;">Recommended for you</h2>
+            <a class="panel-link" data-nav="user/events.html" href="#">Browse all events</a>
+          </div>
+          <div class="event-grid" id="recommendedEvents">
+            <!-- Rendered by js/user.js -->
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var user = window.YGE.user;
+      user.initDashboard();
+      var me = window.YGE.auth.getLoggedInUser();
+      if (!me) return;
+      var accountId = document.getElementById('accountId');
+      var accountEmail = document.getElementById('accountEmail');
+      var accountCreated = document.getElementById('accountCreated');
+      if (accountId) accountId.textContent = me.id;
+      if (accountEmail) accountEmail.textContent = me.email;
+      if (accountCreated) accountCreated.textContent = window.YGE.ui.formatDate(me.createdAt);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse and filter all SkillNest training events and register for a session." />
+  <title>Training Events | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Learner navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">Training Events</h1>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1>Training Events</h1>
+            <p>Search, filter and register for the sessions you want to attend.</p>
+          </div>
+          <div class="page-header-actions">
+            <a class="btn btn-outline btn-sm" data-nav="user/registrations.html" href="#">My Registrations</a>
+          </div>
+        </div>
+
+        <section class="panel" aria-label="Event filters" style="margin-bottom:1.5rem;">
+          <div class="toolbar">
+            <div class="search-field">
+              <label class="sr-only" for="eventSearch">Search events</label>
+              <input type="search" id="eventSearch" name="eventSearch" placeholder="Search by title, trainer or category..." autocomplete="off" />
+            </div>
+            <div>
+              <label class="sr-only" for="categoryFilter">Filter by category</label>
+              <select id="categoryFilter" name="categoryFilter">
+                <option value="all">All categories</option>
+              </select>
+            </div>
+            <div>
+              <label class="sr-only" for="statusFilter">Filter by status</label>
+              <select id="statusFilter" name="statusFilter">
+                <option value="all">All statuses</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <p class="muted-text" id="eventCount">Loading events...</p>
+        </section>
+
+        <section class="event-grid" id="eventList" aria-label="Available training events" aria-live="polite">
+          <!-- Event cards rendered by js/user.js -->
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.user.initUserEvents();
+    });
+  </script>
+</body>
+</html>

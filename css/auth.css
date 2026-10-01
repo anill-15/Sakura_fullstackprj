@@ -1,0 +1,96 @@
+/* =============================================================
+   SkillNest - css/auth.css
+   Signup and login screens.
+   ============================================================= */
+
+.auth-body { background: linear-gradient(140deg, #eef2ff 0%, #f8fafc 50%, #e0f2fe 100%); min-height: 100vh; }
+
+.auth-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.auth-aside {
+  position: relative;
+  background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 45%, var(--accent) 100%);
+  color: #fff;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  overflow: hidden;
+}
+.auth-aside::after {
+  content: "";
+  position: absolute;
+  width: 420px; height: 420px;
+  right: -160px; bottom: -180px;
+  background: rgba(255, 255, 255, .08);
+  border-radius: 50%;
+}
+.auth-aside::before {
+  content: "";
+  position: absolute;
+  width: 260px; height: 260px;
+  left: -90px; top: -90px;
+  background: rgba(255, 255, 255, .06);
+  border-radius: 50%;
+}
+.auth-aside > * { position: relative; z-index: 1; }
+.auth-aside h2 { color: #fff; font-size: 1.9rem; max-width: 420px; }
+.auth-aside p { color: rgba(255, 255, 255, .88); max-width: 440px; }
+.auth-brand { display: inline-flex; align-items: center; gap: .65rem; color: #fff; }
+.auth-brand img { background: rgba(255, 255, 255, .15); padding: 6px; border-radius: 12px; }
+.auth-brand .brand-text small { color: rgba(255, 255, 255, .75); }
+.auth-points { display: flex; flex-direction: column; gap: .85rem; }
+.auth-points li { display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem; color: rgba(255, 255, 255, .93); }
+.auth-points .tick { flex: none; width: 22px; height: 22px; border-radius: 50%; background: rgba(255, 255, 255, .2); display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; }
+.auth-aside-footer { font-size: .8rem; color: rgba(255, 255, 255, .7); }
+
+.auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--surface);
+}
+.auth-card { width: min(460px, 100%); }
+.auth-card-head { margin-bottom: 1.5rem; }
+.auth-card-head h1 { font-size: 1.85rem; margin-bottom: .35rem; }
+.auth-card-head p { color: var(--muted); margin: 0; }
+
+.auth-form .btn-block { margin-top: .5rem; }
+.auth-alt { text-align: center; margin-top: 1.25rem; color: var(--muted); font-size: .92rem; }
+.auth-back { display: inline-flex; align-items: center; gap: .35rem; font-size: .88rem; color: var(--muted); margin-bottom: 1.25rem; }
+.auth-back:hover { color: var(--primary); }
+
+.password-field { position: relative; }
+.password-field input { padding-right: 3.25rem; }
+.password-toggle {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  background: none; border: 0; cursor: pointer; color: var(--muted);
+  font-size: .74rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  padding: .35rem .5rem; border-radius: 6px;
+}
+.password-toggle:hover { color: var(--primary); background: var(--primary-soft); }
+
+.demo-credentials {
+  margin-top: 1.5rem;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  padding: 1rem 1.1rem;
+}
+.demo-credentials h2 { font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .6rem; }
+.demo-list { display: grid; gap: .5rem; }
+.demo-item { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .75rem; font-size: .86rem; }
+.demo-item .demo-label { font-weight: 700; color: var(--ink-2); }
+.demo-item code { font-family: var(--font-mono); font-size: .84rem; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: .12rem .45rem; }
+.demo-fill {
+  background: none; border: 0; color: var(--primary); font: inherit; font-size: .82rem;
+  font-weight: 700; cursor: pointer; text-decoration: underline; padding: 0;
+}
+.demo-fill:hover { color: var(--primary-dark); }
+.demo-note { margin: .7rem 0 0; font-size: .8rem; color: var(--muted); }

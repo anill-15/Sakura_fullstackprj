@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SkillNest administrator console: platform statistics, recent registrations and upcoming events." />
+  <title>Admin Dashboard | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell admin-shell">
+    <aside class="sidebar admin-sidebar" id="sidebar" aria-label="Administrator navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar admin-topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">Admin Dashboard</h1>
+          <span class="admin-badge" aria-label="Administrator area">Admin Console</span>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1 id="adminGreeting">Welcome, Administrator</h1>
+            <p id="adminGreetingSub">Loading platform statistics...</p>
+          </div>
+          <div class="page-header-actions">
+            <a class="btn btn-primary btn-sm" data-nav="admin/events.html" href="#">Manage Events</a>
+            <a class="btn btn-outline btn-sm" data-nav="admin/users.html" href="#">Manage Users</a>
+          </div>
+        </div>
+
+        <section class="stats-grid admin-stats" id="adminStats" aria-label="Platform statistics">
+          <!-- Rendered by js/admin.js -->
+        </section>
+
+        <section class="panel" aria-labelledby="quickAdminTitle">
+          <h2 id="quickAdminTitle" class="panel-title">Quick actions</h2>
+          <div class="quick-actions">
+            <a class="quick-action" data-nav="admin/events.html" href="#">
+              <span class="qa-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+              Add Event
+              <small>Create a new session</small>
+            </a>
+            <a class="quick-action" data-nav="admin/events.html" href="#">
+              <span class="qa-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6l-8-4z"/></svg>
+              </span>
+              Manage Events
+              <small>Edit or delete sessions</small>
+            </a>
+            <a class="quick-action" data-nav="admin/users.html" href="#">
+              <span class="qa-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm-8 1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0 2c-2.3 0-7 1.2-7 3.5V21h8v-2.5C9 15 11 14 13 14zm8 0v2.5V21h8v-3.5c0-2.3-4.7-3.5-7-3.5z"/></svg>
+              </span>
+              Manage Users
+              <small>View or remove learners</small>
+            </a>
+            <a class="quick-action" data-nav="admin/registrations.html" href="#">
+              <span class="qa-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 6h16a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4V8a2 2 0 0 1 2-2z"/></svg>
+              </span>
+              View Registrations
+              <small>Who joined which event</small>
+            </a>
+          </div>
+        </section>
+
+        <div class="dashboard-panels">
+          <section class="panel" aria-labelledby="recentRegTitle">
+            <div class="panel-header">
+              <h2 id="recentRegTitle">Recent registrations</h2>
+              <a class="panel-link" data-nav="admin/registrations.html" href="#">See all</a>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <caption class="sr-only">Most recent learner registrations</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Learner</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Registered</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="recentRegistrations">
+                  <!-- Rendered by js/admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="upcomingTitle">
+            <div class="panel-header">
+              <h2 id="upcomingTitle">Upcoming events</h2>
+              <a class="panel-link" data-nav="admin/events.html" href="#">Manage</a>
+            </div>
+            <ul id="upcomingEvents" class="stack" style="gap:0;">
+              <!-- Rendered by js/admin.js -->
+            </ul>
+          </section>
+
+          <section class="panel" aria-labelledby="popularTitle">
+            <h2 id="popularTitle" class="panel-title">Popular sessions</h2>
+            <ul id="popularEvents" class="stack" style="gap:0;">
+              <!-- Rendered by js/admin.js -->
+            </ul>
+          </section>
+
+          <section class="panel" aria-labelledby="quickManageTitle">
+            <h2 id="quickManageTitle" class="panel-title">Platform notes</h2>
+            <ul class="stack" style="gap:.75rem;">
+              <li class="flex items-center gap-sm">
+                <span class="badge badge-upcoming">Events</span>
+                <span class="muted-text">Status is calculated from the event date and the current time.</span>
+              </li>
+              <li class="flex items-center gap-sm">
+                <span class="badge badge-role-admin">Admin</span>
+                <span class="muted-text">The default administrator account can never be deleted.</span>
+              </li>
+              <li class="flex items-center gap-sm">
+                <span class="badge badge-confirmed">Registrations</span>
+                <span class="muted-text">Deleting an event also removes its linked registrations.</span>
+              </li>
+              <li class="flex items-center gap-sm">
+                <span class="badge badge-category">Storage</span>
+                <span class="muted-text">All data is kept in this browser using LocalStorage keys yge_users, yge_events, yge_registrations and yge_currentUser.</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.admin.initDashboard();
+    });
+  </script>
+</body>
+</html>

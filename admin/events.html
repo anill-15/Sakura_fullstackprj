@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create, edit and delete SkillNest training events." />
+  <title>Manage Events | SkillNest Admin</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell admin-shell">
+    <aside class="sidebar admin-sidebar" id="sidebar" aria-label="Administrator navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar admin-topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">Manage Events</h1>
+          <span class="admin-badge">Admin Console</span>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1>Event Manager</h1>
+            <p>Create, update, cancel and delete training events. Every change is saved to LocalStorage immediately.</p>
+          </div>
+          <div class="page-header-actions">
+            <button type="button" class="btn btn-primary" data-action="add-event">+ Add Event</button>
+          </div>
+        </div>
+
+        <!-- ===================== Create / Edit form ===================== -->
+        <section class="panel event-form-panel" id="eventFormPanel" aria-labelledby="eventFormTitle" hidden>
+          <h2 class="panel-title" id="eventFormTitle">Create a new training event</h2>
+          <p class="form-hint">All fields marked required must be filled. Start time must be earlier than end time and capacity must be at least 1.</p>
+
+          <form id="eventForm" novalidate>
+            <div class="form-alert" role="alert" hidden></div>
+
+            <div class="form-grid">
+              <div class="form-field form-span-2">
+                <label for="eventTitle">Event Title <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="eventTitle" name="title" placeholder="e.g. Advanced CSS Layouts" required aria-describedby="titleError" />
+                <span class="field-error" id="titleError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field form-span-2">
+                <label for="eventDescription">Description <span class="required" aria-hidden="true">*</span></label>
+                <textarea id="eventDescription" name="description" placeholder="What will participants learn in this session? (minimum 20 characters)" required aria-describedby="descriptionError"></textarea>
+                <span class="field-error" id="descriptionError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventCategory">Category <span class="required" aria-hidden="true">*</span></label>
+                <select id="eventCategory" name="category" required aria-describedby="categoryError">
+                  <option value="">Select a category</option>
+                </select>
+                <span class="field-error" id="categoryError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventTrainer">Trainer <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="eventTrainer" name="trainer" placeholder="e.g. Priya Nair" required aria-describedby="trainerError" />
+                <span class="field-error" id="trainerError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventDate">Date <span class="required" aria-hidden="true">*</span></label>
+                <input type="date" id="eventDate" name="date" required aria-describedby="dateError" />
+                <span class="field-error" id="dateError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventStatus">Status <span class="required" aria-hidden="true">*</span></label>
+                <select id="eventStatus" name="status" required aria-describedby="statusError">
+                  <option value="upcoming">Upcoming</option>
+                  <option value="ongoing">Ongoing</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+                <span class="hint">Only "Cancelled" is stored as an override; other values are recalculated from the date.</span>
+                <span class="field-error" id="statusError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventStartTime">Start Time <span class="required" aria-hidden="true">*</span></label>
+                <input type="time" id="eventStartTime" name="startTime" required aria-describedby="startTimeError" />
+                <span class="field-error" id="startTimeError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventEndTime">End Time <span class="required" aria-hidden="true">*</span></label>
+                <input type="time" id="eventEndTime" name="endTime" required aria-describedby="endTimeError" />
+                <span class="field-error" id="endTimeError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventDuration">Duration</label>
+                <input type="text" id="eventDuration" name="duration" placeholder="e.g. 3 hours (auto-calculated if empty)" aria-describedby="durationHint" />
+                <span class="hint" id="durationHint">Leave blank to calculate from the start and end time.</span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventMode">Mode <span class="required" aria-hidden="true">*</span></label>
+                <select id="eventMode" name="mode" required aria-describedby="modeError">
+                  <option value="">Select a mode</option>
+                </select>
+                <span class="field-error" id="modeError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field form-span-2">
+                <label for="eventVenue">Venue / Meeting Link <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="eventVenue" name="venueOrLink" placeholder="https://meet.example.com/session or YGE Campus, Lab 3" required aria-describedby="venueOrLinkError" />
+                <span class="field-error" id="venueOrLinkError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="eventCapacity">Maximum Participants <span class="required" aria-hidden="true">*</span></label>
+                <input type="number" id="eventCapacity" name="maxParticipants" min="1" step="1" placeholder="e.g. 40" required aria-describedby="maxParticipantsError" />
+                <span class="field-error" id="maxParticipantsError" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="flex gap" style="flex-wrap:wrap;">
+              <button type="submit" class="btn btn-primary">Save Event</button>
+              <button type="button" class="btn btn-ghost" data-action="close-event-form">Cancel</button>
+              <button type="button" class="btn btn-ghost" data-action="reset-event-form">Reset form</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ===================== Filters ===================== -->
+        <section class="panel" aria-label="Event filters" style="margin-top:1.5rem;">
+          <div class="toolbar">
+            <div class="search-field">
+              <label class="sr-only" for="adminEventSearch">Search events</label>
+              <input type="search" id="adminEventSearch" placeholder="Search by title, trainer, description..." autocomplete="off" />
+            </div>
+            <div>
+              <label class="sr-only" for="adminCategoryFilter">Filter by category</label>
+              <select id="adminCategoryFilter">
+                <option value="all">All categories</option>
+              </select>
+            </div>
+            <div>
+              <label class="sr-only" for="adminStatusFilter">Filter by status</label>
+              <select id="adminStatusFilter">
+                <option value="all">All statuses</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <p class="muted-text" id="adminEventCount">Loading events...</p>
+        </section>
+
+        <!-- ===================== Desktop table ===================== -->
+        <section class="admin-desktop-table" aria-labelledby="eventTableTitle">
+          <h2 id="eventTableTitle" class="sr-only">All training events</h2>
+          <div class="table-wrap">
+            <table class="data-table">
+              <caption class="sr-only">All training events with edit and delete actions</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Trainer</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Mode</th>
+                  <th scope="col">Seats</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminEventRows">
+                <!-- Rendered by js/admin.js -->
+              </tbody>
+            </table>
+          </div>
+          <p class="admin-table-note">
+            Deleting an event also removes every registration linked to it, so the platform never keeps broken records.
+          </p>
+        </section>
+
+        <!-- ===================== Mobile cards ===================== -->
+        <section class="admin-mobile-cards" aria-label="All training events (card view)">
+          <div class="event-grid" id="adminEventCards">
+            <!-- Rendered by js/admin.js -->
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.admin.initAdminEvents();
+    });
+  </script>
+</body>
+</html>

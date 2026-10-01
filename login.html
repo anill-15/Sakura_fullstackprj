@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Login to SkillNest to register for technical training sessions or to manage the training platform as an administrator." />
+  <title>Login | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="auth-body">
+  <a class="skip-link" href="#loginForm">Skip to login form</a>
+
+  <div class="auth-layout">
+    <!-- ===================== Brand panel ===================== -->
+    <aside class="auth-aside">
+      <a class="auth-brand" href="index.html">
+        <img src="assets/images/logo.svg" alt="" width="44" height="44" />
+        <span class="brand-text"><strong>SkillNest</strong><small>Skill Development Platform</small></span>
+      </a>
+
+      <div>
+        <h2>Welcome back to your learning journey.</h2>
+        <p>Login to see the sessions you have registered for, update your profile or manage the whole platform.</p>
+        <ul class="auth-points">
+          <li><span class="tick" aria-hidden="true">1</span> Learners are redirected to the learner dashboard</li>
+          <li><span class="tick" aria-hidden="true">2</span> Administrators are redirected to the admin console</li>
+          <li><span class="tick" aria-hidden="true">3</span> Every page re-verifies your session and role</li>
+        </ul>
+      </div>
+
+      <p class="auth-aside-footer">Role based redirection is handled entirely in JavaScript using LocalStorage sessions.</p>
+    </aside>
+
+    <!-- ===================== Form panel ===================== -->
+    <main class="auth-main">
+      <div class="auth-card">
+        <a class="auth-back" href="index.html">&larr; Back to home</a>
+
+        <header class="auth-card-head">
+          <h1>Login to your account</h1>
+          <p>Enter the email and password you used while signing up.</p>
+        </header>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="form-alert" role="alert" hidden></div>
+
+          <div class="form-field">
+            <label for="email">Email Address <span class="required" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="loginEmailError" />
+            <span class="field-error" id="loginEmailError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password <span class="required" aria-hidden="true">*</span></label>
+            <div class="password-field">
+              <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required aria-describedby="loginPasswordError" />
+              <button type="button" class="password-toggle" data-toggle-password="password" aria-label="Show password">Show</button>
+            </div>
+            <span class="field-error" id="loginPasswordError" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
+        </form>
+
+        <p class="auth-alt">New to SkillNest? <a href="signup.html">Create an account</a></p>
+
+        <section class="demo-credentials" aria-labelledby="demoHeading">
+          <h2 id="demoHeading">Demo / evaluation accounts</h2>
+          <div class="demo-list">
+            <div class="demo-item">
+              <span class="demo-label">Administrator</span>
+              <code>admin@ygeupskill.com</code>
+              <code>Admin@123</code>
+              <button type="button" class="demo-fill" data-fill="admin@ygeupskill.com|Admin@123">Use this account</button>
+            </div>
+            </div>
+          <p class="demo-note">
+            The administrator account is created automatically on first load and can never be deleted from the
+            user manager. Learner accounts are not pre-created: sign up with
+            <code>student@example.com</code> / <code>Student@123</code> to produce the documented test learner,
+            then return here to log in.
+          </p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var store = window.YGE;
+      var ui = store.ui;
+      var navigation = store.navigation;
+
+      /* Already signed in? Go straight to the correct module. */
+      if (navigation.guard('guest') === null) return;
+
+      navigation.showUrlFlash();
+
+      var form = document.getElementById('loginForm');
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-toggle-password]'), function (button) {
+        button.addEventListener('click', function () {
+          var input = document.getElementById(button.getAttribute('data-toggle-password'));
+          var isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          button.textContent = isHidden ? 'Hide' : 'Show';
+          button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        });
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-fill]'), function (button) {
+        button.addEventListener('click', function () {
+          var parts = button.getAttribute('data-fill').split('|');
+          document.getElementById('email').value = parts[0];
+          document.getElementById('password').value = parts[1];
+          ui.clearFormErrors(form);
+          ui.toastInfo('Demo credentials filled in. Press Login to continue.');
+        });
+      });
+
+      Array.prototype.forEach.call(form.querySelectorAll('input'), function (input) {
+        input.addEventListener('input', function () {
+          ui.setFieldError(input, '');
+        });
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        ui.clearFormErrors(form);
+
+        var data = ui.getFormData(form);
+        var result = store.auth.login(data.email, data.password);
+
+        if (result.success) {
+          ui.showFormAlert(form, result.message, 'success');
+          ui.toastSuccess(result.message);
+          var target = store.auth.homeFor(result.user);
+          window.setTimeout(function () {
+            window.location.href = target;
+          }, 700);
+        } else {
+          ui.toastError(result.message);
+          ui.showFormAlert(form, result.message, 'error');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

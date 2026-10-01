@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create a free SkillNest learner account and start registering for technical training sessions." />
+  <title>Sign Up | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="auth-body">
+  <a class="skip-link" href="#signupForm">Skip to signup form</a>
+
+  <div class="auth-layout">
+    <!-- ===================== Brand panel ===================== -->
+    <aside class="auth-aside">
+      <a class="auth-brand" href="index.html">
+        <img src="assets/images/logo.svg" alt="" width="44" height="44" />
+        <span class="brand-text"><strong>SkillNest</strong><small>Skill Development Platform</small></span>
+      </a>
+
+      <div>
+        <h2>Start learning emerging technologies today.</h2>
+        <p>Create your free account, reserve seats in mentor-led sessions and track your technical progress.</p>
+        <ul class="auth-points">
+          <li><span class="tick" aria-hidden="true">&#10003;</span> Browse the complete live event catalogue</li>
+          <li><span class="tick" aria-hidden="true">&#10003;</span> Register in one click and cancel when plans change</li>
+          <li><span class="tick" aria-hidden="true">&#10003;</span> See upcoming, ongoing and completed sessions</li>
+          <li><span class="tick" aria-hidden="true">&#10003;</span> Manage your profile and contact details</li>
+        </ul>
+      </div>
+
+      <p class="auth-aside-footer">Your account is created locally in this browser using LocalStorage. No server is required.</p>
+    </aside>
+
+    <!-- ===================== Form panel ===================== -->
+    <main class="auth-main">
+      <div class="auth-card">
+        <a class="auth-back" href="index.html">&larr; Back to home</a>
+
+        <header class="auth-card-head">
+          <h1>Create your account</h1>
+          <p>Sign up as a learner. Administrator accounts are provided separately for evaluation.</p>
+        </header>
+
+        <form id="signupForm" class="auth-form" novalidate>
+          <div class="form-alert" role="alert" hidden></div>
+
+          <div class="form-field">
+            <label for="fullName">Full Name <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="fullName" name="name" placeholder="e.g. Test Student" autocomplete="name" required aria-describedby="nameError" />
+            <span class="field-error" id="nameError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email Address <span class="required" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="emailError" />
+            <span class="field-error" id="emailError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 90000 00000" autocomplete="tel" required aria-describedby="phoneError phoneHint" />
+            <span class="hint" id="phoneHint">Digits, spaces, + and - are allowed (7 to 20 digits).</span>
+            <span class="field-error" id="phoneError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password <span class="required" aria-hidden="true">*</span></label>
+            <div class="password-field">
+              <input type="password" id="password" name="password" placeholder="Minimum 6 characters" autocomplete="new-password" required aria-describedby="passwordError" />
+              <button type="button" class="password-toggle" data-toggle-password="password" aria-label="Show password">Show</button>
+            </div>
+            <span class="field-error" id="passwordError" aria-live="polite"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="confirmPassword">Confirm Password <span class="required" aria-hidden="true">*</span></label>
+            <div class="password-field">
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" autocomplete="new-password" required aria-describedby="confirmPasswordError" />
+              <button type="button" class="password-toggle" data-toggle-password="confirmPassword" aria-label="Show password">Show</button>
+            </div>
+            <span class="field-error" id="confirmPasswordError" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Create Account</button>
+        </form>
+
+        <p class="auth-alt">Already have an account? <a href="login.html">Login here</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var store = window.YGE;
+      var ui = store.ui;
+      var navigation = store.navigation;
+
+      /* An already signed-in user has no reason to be on the signup page. */
+      if (navigation.guard('guest') === null) return;
+
+      var form = document.getElementById('signupForm');
+
+      /* Show / hide password */
+      Array.prototype.forEach.call(document.querySelectorAll('[data-toggle-password]'), function (button) {
+        button.addEventListener('click', function () {
+          var input = document.getElementById(button.getAttribute('data-toggle-password'));
+          var isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          button.textContent = isHidden ? 'Hide' : 'Show';
+          button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        });
+      });
+
+      /* Clear a field error as soon as the user edits the field. */
+      Array.prototype.forEach.call(form.querySelectorAll('input'), function (input) {
+        input.addEventListener('input', function () {
+          ui.setFieldError(input, '');
+        });
+      });
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        ui.clearFormErrors(form);
+
+        var data = ui.getFormData(form);
+        var result = store.auth.signup(data);
+
+        if (result.success) {
+          ui.showFormAlert(form, result.message, 'success');
+          ui.toastSuccess(result.message + ' Redirecting to login...');
+          window.setTimeout(function () {
+            window.location.href = 'login.html?success=' + encodeURIComponent('Account created successfully. Please login.');
+          }, 1200);
+        } else {
+          ui.toastError(result.message);
+          ui.showFormAlert(form, result.message, 'error');
+          ui.applyFieldErrors(form, result.errors);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

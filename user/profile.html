@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View and update your SkillNest learner profile." />
+  <title>My Profile | SkillNest</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Learner navigation"></aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation menu">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          </button>
+          <h1 class="topbar-title" id="pageTitle">My Profile</h1>
+          <span class="topbar-date" id="topbarDate"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-user" id="topbarUser"></div>
+          <button type="button" class="btn btn-ghost btn-sm" data-action="logout">Logout</button>
+        </div>
+      </header>
+
+      <main class="page" id="mainContent">
+        <div class="page-header">
+          <div>
+            <h1>My Profile</h1>
+            <p>Keep your contact details up to date and change your password securely.</p>
+          </div>
+        </div>
+
+        <section class="profile-hero" aria-label="Profile summary">
+          <span class="avatar avatar-lg" id="profileInitials" aria-hidden="true">U</span>
+          <div>
+            <h2 id="profileDisplayName">Learner</h2>
+            <p id="profileMemberSince">Member since -</p>
+          </div>
+        </section>
+
+        <section class="stats-grid" id="profileStats" aria-label="Your activity" style="margin-top:1.5rem;">
+          <!-- Rendered by js/user.js -->
+        </section>
+
+        <div class="dash-columns dash-columns-even" style="margin-top:1.5rem;">
+          <!-- ===================== Edit details ===================== -->
+          <section class="panel" aria-labelledby="editDetailsTitle">
+            <h2 id="editDetailsTitle" class="panel-title">Edit details</h2>
+            <form id="profileForm" novalidate>
+              <div class="form-alert" role="alert" hidden></div>
+
+              <div class="form-field">
+                <label for="profileName">Full Name <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="profileName" name="name" autocomplete="name" required aria-describedby="profileNameError" />
+                <span class="field-error" id="profileNameError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="profilePhone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+                <input type="tel" id="profilePhone" name="phone" autocomplete="tel" required aria-describedby="profilePhoneError" />
+                <span class="field-error" id="profilePhoneError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="profileEmail">Email Address</label>
+                <input type="email" id="profileEmail" name="email" class="readonly-field" readonly aria-readonly="true" />
+                <p class="lock-note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9V6z"/></svg>
+                  Email is your login identity and cannot be changed.
+                </p>
+              </div>
+
+              <div class="form-field">
+                <label for="profileRole">Role</label>
+                <input type="text" id="profileRole" name="role" class="readonly-field" readonly aria-readonly="true" />
+                <p class="lock-note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zM9 6a3 3 0 0 1 6 0v2H9V6z"/></svg>
+                  Roles are assigned by the system only. A learner cannot become an administrator.
+                </p>
+              </div>
+
+              <div class="form-field">
+                <label for="profileId">User ID</label>
+                <input type="text" id="profileId" name="id" class="readonly-field" readonly aria-readonly="true" />
+              </div>
+
+              <div class="form-field">
+                <label for="profileCreated">Account created on</label>
+                <input type="text" id="profileCreated" name="created" class="readonly-field" readonly aria-readonly="true" />
+              </div>
+
+              <div class="flex gap" style="flex-wrap:wrap;">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-ghost" data-action="reset-profile">Reset</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- ===================== Password ===================== -->
+          <section class="panel" aria-labelledby="passwordTitle">
+            <h2 id="passwordTitle" class="panel-title">Change password</h2>
+            <form id="passwordForm" novalidate>
+              <div class="form-alert" role="alert" hidden></div>
+
+              <div class="form-field">
+                <label for="currentPassword">Current Password <span class="required" aria-hidden="true">*</span></label>
+                <input type="password" id="currentPassword" name="currentPassword" autocomplete="current-password" required aria-describedby="currentPasswordError" />
+                <span class="field-error" id="currentPasswordError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="newPassword">New Password <span class="required" aria-hidden="true">*</span></label>
+                <div class="password-field">
+                  <input type="password" id="newPassword" name="newPassword" autocomplete="new-password" required aria-describedby="newPasswordError" />
+                  <button type="button" class="password-toggle" data-toggle-password="newPassword" aria-label="Show password">Show</button>
+                </div>
+                <span class="field-error" id="newPasswordError" aria-live="polite"></span>
+              </div>
+
+              <div class="form-field">
+                <label for="confirmNewPassword">Confirm New Password <span class="required" aria-hidden="true">*</span></label>
+                <div class="password-field">
+                  <input type="password" id="confirmNewPassword" name="confirmPassword" autocomplete="new-password" required aria-describedby="confirmPasswordError" />
+                  <button type="button" class="password-toggle" data-toggle-password="confirmNewPassword" aria-label="Show password">Show</button>
+                </div>
+                <span class="field-error" id="confirmPasswordError" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update Password</button>
+            </form>
+
+            <div class="card" style="margin-top:1.5rem;background:var(--surface-2);">
+              <h3 style="font-size:1rem;">Why change your password?</h3>
+              <p class="muted-text" style="margin:0;">
+                Your password is stored locally in this browser. Changing it updates the local account record
+                immediately and applies from your next login.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/events.js"></script>
+  <script src="../js/user.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.YGE.user.initProfile();
+
+      /* Password visibility toggles */
+      Array.prototype.forEach.call(document.querySelectorAll('[data-toggle-password]'), function (button) {
+        button.addEventListener('click', function () {
+          var input = document.getElementById(button.getAttribute('data-toggle-password'));
+          var isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          button.textContent = isHidden ? 'Hide' : 'Show';
+          button.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
